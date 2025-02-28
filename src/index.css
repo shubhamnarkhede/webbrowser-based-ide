@@ -5,26 +5,26 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 222 47% 11%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 222 47% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 222 47% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -33,20 +33,35 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --terminal: 222.2 84% 4.9%;
-    --terminal-foreground: 210 40% 98%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --editor-background: 220 20% 97%;
+    --editor-foreground: 220 40% 16%;
+    --editor-gutter: 220 14% 94%;
+    --editor-line-highlight: 220 33% 96%;
+    --editor-selection: 220 40% 92%;
+
+    --terminal-background: 220 40% 13%;
+    --terminal-foreground: 220 20% 90%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 224 35% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222 47% 12%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 47% 10%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 210 40% 98%;
@@ -66,10 +81,25 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: hsl(212.7, 26.8%, 83.9);
+    --ring: 212.7 26.8% 83.9%;
 
-    --terminal: 0 0% 0%;
-    --terminal-foreground: 0 0% 90%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --editor-background: 220 25% 10%;
+    --editor-foreground: 220 10% 90%;
+    --editor-gutter: 220 28% 14%;
+    --editor-line-highlight: 220 33% 14%;
+    --editor-selection: 220 40% 22%;
+
+    --terminal-background: 220 40% 9%;
+    --terminal-foreground: 220 20% 90%;
   }
 }
 
@@ -77,19 +107,111 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full hover:bg-muted-foreground/50 transition-colors;
+  }
+
+  /* Glass morphism */
+  .glass {
+    @apply backdrop-blur-md bg-white/80 dark:bg-black/40 border border-white/20 dark:border-white/10;
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-md bg-black/40 border border-white/10;
+  }
+
+  /* Smooth transitions */
+  .smooth-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Fade in animation */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+
+  /* Container padding */
+  .container-padding {
+    @apply px-4 md:px-6 lg:px-8;
   }
 }
 
-.editor-container {
-  @apply border border-border rounded-md overflow-hidden;
+@layer components {
+  .editor-container {
+    @apply rounded-lg overflow-hidden border border-border bg-editor shadow-sm;
+  }
+
+  .terminal-container {
+    @apply rounded-lg overflow-hidden border border-border bg-terminal shadow-sm;
+  }
+
+  .editor-header {
+    @apply flex items-center justify-between border-b border-border p-2 bg-muted/50;
+  }
+
+  .tab-button {
+    @apply px-3 py-1.5 rounded-md text-sm font-medium transition-colors;
+  }
+
+  .tab-button.active {
+    @apply bg-background shadow-sm;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors;
+  }
 }
 
-.editor-header {
-  @apply flex justify-between items-center p-2 bg-background border-b border-border;
+/* Base styles for the monaco editor */
+.monaco-editor {
+  padding: 0.5rem 0;
 }
 
-.monaco-editor .overflow-guard {
-  @apply rounded-b-md;
+/* Animation for the cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* Animation for page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 300ms, transform 300ms;
 }

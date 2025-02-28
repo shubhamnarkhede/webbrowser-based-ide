@@ -1,240 +1,77 @@
 
-// Default code templates for different languages
-export const getDefaultCode = (language: string): string => {
-  switch (language.toLowerCase()) {
-    case 'javascript':
-      return `// JavaScript Code Example
-console.log("Hello, World!");
+import type { editor } from 'monaco-editor';
 
-// Example function
-function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-// Print first 10 fibonacci numbers
-for (let i = 0; i < 10; i++) {
-  console.log(\`Fibonacci(\${i}): \${fibonacci(i)}\`);
-}`;
-
-    case 'typescript':
-      return `// TypeScript Code Example
-console.log("Hello, TypeScript!");
-
-// Example function with types
-function fibonacci(n: number): number {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-// Print first 10 fibonacci numbers
-for (let i = 0; i < 10; i++) {
-  console.log(\`Fibonacci(\${i}): \${fibonacci(i)}\`);
-}`;
-
-    case 'python':
-      return `# Python Code Example
-print("Hello, Python!")
-
-# Example function
-def fibonacci(n):
-    if n <= 1:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-# Print first 10 fibonacci numbers
-for i in range(10):
-    print(f"Fibonacci({i}): {fibonacci(i)}")`;
-
-    case 'java':
-      return `// Java Code Example
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, Java!");
-        
-        // Print first 10 fibonacci numbers
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Fibonacci(" + i + "): " + fibonacci(i));
-        }
+export const editorThemes: Record<string, editor.IStandaloneThemeData> = {
+  light: {
+    base: 'vs' as const,
+    inherit: true,
+    rules: [
+      { background: 'F8F9FC' }
+    ],
+    colors: {
+      'editor.background': '#F8F9FC',
+      'editor.foreground': '#2D3748',
+      'editorCursor.foreground': '#4A5568',
+      'editor.lineHighlightBackground': '#EDF2F7',
+      'editorLineNumber.foreground': '#A0AEC0',
+      'editor.selectionBackground': '#E2E8F0',
+      'editor.inactiveSelectionBackground': '#EDF2F7',
     }
-    
-    // Example function
-    public static int fibonacci(int n) {
-        if (n <= 1) return n;
-        return fibonacci(n - 1) + fibonacci(n - 2);
+  },
+  dark: {
+    base: 'vs-dark' as const,
+    inherit: true,
+    rules: [
+      { background: '1A202C' }
+    ],
+    colors: {
+      'editor.background': '#1A202C',
+      'editor.foreground': '#E2E8F0',
+      'editorCursor.foreground': '#A0AEC0',
+      'editor.lineHighlightBackground': '#2D3748',
+      'editorLineNumber.foreground': '#718096',
+      'editor.selectionBackground': '#4A5568',
+      'editor.inactiveSelectionBackground': '#2D3748',
     }
-}`;
-
-    case 'c++':
-    case 'cpp':
-      return `// C++ Code Example
-#include <iostream>
-
-// Example function
-int fibonacci(int n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-int main() {
-    std::cout << "Hello, C++!" << std::endl;
-    
-    // Print first 10 fibonacci numbers
-    for (int i = 0; i < 10; i++) {
-        std::cout << "Fibonacci(" << i << "): " << fibonacci(i) << std::endl;
-    }
-    
-    return 0;
-}`;
-
-    case 'c#':
-    case 'csharp':
-      return `// C# Code Example
-using System;
-
-class Program {
-    static void Main() {
-        Console.WriteLine("Hello, C#!");
-        
-        // Print first 10 fibonacci numbers
-        for (int i = 0; i < 10; i++) {
-            Console.WriteLine($"Fibonacci({i}): {Fibonacci(i)}");
-        }
-    }
-    
-    // Example function
-    static int Fibonacci(int n) {
-        if (n <= 1) return n;
-        return Fibonacci(n - 1) + Fibonacci(n - 2);
-    }
-}`;
-
-    case 'ruby':
-      return `# Ruby Code Example
-puts "Hello, Ruby!"
-
-# Example function
-def fibonacci(n)
-  return n if n <= 1
-  fibonacci(n - 1) + fibonacci(n - 2)
-end
-
-# Print first 10 fibonacci numbers
-10.times do |i|
-  puts "Fibonacci(#{i}): #{fibonacci(i)}"
-end`;
-
-    case 'go':
-      return `// Go Code Example
-package main
-
-import "fmt"
-
-// Example function
-func fibonacci(n int) int {
-    if n <= 1 {
-        return n
-    }
-    return fibonacci(n-1) + fibonacci(n-2)
-}
-
-func main() {
-    fmt.Println("Hello, Go!")
-    
-    // Print first 10 fibonacci numbers
-    for i := 0; i < 10; i++ {
-        fmt.Printf("Fibonacci(%d): %d\\n", i, fibonacci(i))
-    }
-}`;
-
-    case 'php':
-      return `<?php
-// PHP Code Example
-echo "Hello, PHP!\\n";
-
-// Example function
-function fibonacci($n) {
-    if ($n <= 1) return $n;
-    return fibonacci($n - 1) + fibonacci($n - 2);
-}
-
-// Print first 10 fibonacci numbers
-for ($i = 0; $i < 10; $i++) {
-    echo "Fibonacci($i): " . fibonacci($i) . "\\n";
-}
-?>`;
-
-    case 'rust':
-      return `// Rust Code Example
-fn main() {
-    println!("Hello, Rust!");
-    
-    // Print first 10 fibonacci numbers
-    for i in 0..10 {
-        println!("Fibonacci({}): {}", i, fibonacci(i));
-    }
-}
-
-// Example function
-fn fibonacci(n: u32) -> u32 {
-    if n <= 1 {
-        return n;
-    }
-    fibonacci(n - 1) + fibonacci(n - 2)
-}`;
-
-    case 'swift':
-      return `// Swift Code Example
-print("Hello, Swift!")
-
-// Example function
-func fibonacci(_ n: Int) -> Int {
-    if n <= 1 { return n }
-    return fibonacci(n - 1) + fibonacci(n - 2)
-}
-
-// Print first 10 fibonacci numbers
-for i in 0..<10 {
-    print("Fibonacci(\\(i)): \\(fibonacci(i))")
-}`;
-
-    case 'kotlin':
-      return `// Kotlin Code Example
-fun main() {
-    println("Hello, Kotlin!")
-    
-    // Print first 10 fibonacci numbers
-    for (i in 0 until 10) {
-        println("Fibonacci($i): ${fibonacci(i)}")
-    }
-}
-
-// Example function
-fun fibonacci(n: Int): Int {
-    if (n <= 1) return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
-}`;
-
-    default:
-      return `// Code Example
-console.log("Hello, World!");
-
-// Select a language from the dropdown to see language-specific examples.`;
   }
 };
 
-// Get available language options
-export const getLanguageOptions = () => [
-  { value: 'javascript', label: 'JavaScript' },
-  { value: 'typescript', label: 'TypeScript' },
-  { value: 'python', label: 'Python' },
-  { value: 'java', label: 'Java' },
-  { value: 'cpp', label: 'C++' },
-  { value: 'csharp', label: 'C#' },
-  { value: 'ruby', label: 'Ruby' },
-  { value: 'go', label: 'Go' },
-  { value: 'php', label: 'PHP' },
-  { value: 'rust', label: 'Rust' },
-  { value: 'swift', label: 'Swift' },
-  { value: 'kotlin', label: 'Kotlin' }
+export const languageOptions = [
+  { id: 'javascript', name: 'JavaScript', extension: 'js', mime: 'text/javascript' },
+  { id: 'typescript', name: 'TypeScript', extension: 'ts', mime: 'text/typescript' },
+  { id: 'html', name: 'HTML', extension: 'html', mime: 'text/html' },
+  { id: 'css', name: 'CSS', extension: 'css', mime: 'text/css' },
+  { id: 'json', name: 'JSON', extension: 'json', mime: 'application/json' },
+  { id: 'markdown', name: 'Markdown', extension: 'md', mime: 'text/markdown' },
+  { id: 'python', name: 'Python', extension: 'py', mime: 'text/x-python' },
+  { id: 'java', name: 'Java', extension: 'java', mime: 'text/x-java-source' },
+  { id: 'c', name: 'C', extension: 'c', mime: 'text/x-csrc' },
+  { id: 'cpp', name: 'C++', extension: 'cpp', mime: 'text/x-c++src' },
 ];
+
+export const getDefaultCode = (language: string): string => {
+  switch (language) {
+    case 'javascript':
+      return `// Welcome to ScriptSynthesizer!\n\nfunction greet(name) {\n  return \`Hello, \${name}!\`;\n}\n\nconsole.log(greet('World'));\n`;
+    case 'typescript':
+      return `// Welcome to ScriptSynthesizer!\n\nfunction greet(name: string): string {\n  return \`Hello, \${name}!\`;\n}\n\nconsole.log(greet('World'));\n`;
+    case 'html':
+      return `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Document</title>\n</head>\n<body>\n  <h1>Hello, World!</h1>\n</body>\n</html>\n`;
+    case 'css':
+      return `body {\n  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;\n  color: #333;\n  line-height: 1.5;\n}\n\nh1 {\n  color: #2c5282;\n}\n`;
+    case 'json':
+      return `{\n  "name": "ScriptSynthesizer",\n  "version": "1.0.0",\n  "description": "A beautiful, minimalist code editor",\n  "author": "You"\n}\n`;
+    case 'markdown':
+      return `# Welcome to ScriptSynthesizer\n\n## Features\n\n- Beautiful, minimal interface\n- Syntax highlighting\n- Multiple language support\n\n## Getting Started\n\nStart typing your markdown content here...\n`;
+    case 'python':
+      return `# Welcome to ScriptSynthesizer!\n\ndef greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("World"))\n`;
+    case 'java':
+      return `// Welcome to ScriptSynthesizer!\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}\n`;
+    case 'c':
+      return `// Welcome to ScriptSynthesizer!\n\n#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}\n`;
+    case 'cpp':
+      return `// Welcome to ScriptSynthesizer!\n\n#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}\n`;
+    default:
+      return `// Welcome to ScriptSynthesizer!\n\n// Start coding here...\n`;
+  }
+};
