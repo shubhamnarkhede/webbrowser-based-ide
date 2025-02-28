@@ -126,10 +126,11 @@ function App() {
         }
       }
     } else {
-      // For non-JavaScript languages, just show a message
+      // For non-JavaScript languages, provide a more informative message
       setTerminalLines([
         `[system] Running ${language} code requires a server environment.`,
-        `[system] This browser-based editor can only execute JavaScript.`
+        `[system] This browser-based editor can only execute JavaScript.`,
+        `[system] Syntax highlighting and code editing still work for all supported languages.`
       ]);
     }
     
